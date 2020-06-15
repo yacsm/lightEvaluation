@@ -1,7 +1,3 @@
-# lightEvaluation
-A light evaluation tool for evaluating static visualization images in a drag-and-drop manner
-
-# usage
 Please put two data into the config filefolder:
 
 1) Name your visualization image to visualize "vis.png"

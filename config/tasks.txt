@@ -1,0 +1,8 @@
+(Hillary Clinton: Pink, Donald Trump: Blue). This visualization shows the frequent words usage of them when mentioning 'great'. The time span for aggregation is every one week.
+1. Clinton's peak activity time;
+2. The time that Trump had Higher activities than Clinton
+3. Common keywords of both users except "great"
+4. Common keywords of both users except "great"
+5. The time that Trump had Higher activities than Clinton
+6. Common keywords of both users except "great"
+7. Common keywords of both users except "great"

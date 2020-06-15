@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Evaluation</title>
+  <style>
+  .dragg { width: 10px; height: 10px; padding: 0.5em; cursor:grab;background: #FFF888;
+    display: inline}
+  #listText{
+    position:absolute;
+    left:70%;
+    top:0px;
+  }
+  p{display:inline;}
+  #hiddenlayer{
+    position:absolute;
+    left:0;
+    top:0;
+    width:70%;
+  }
+  </style>
+  <script src="jquery-1.12.4.js"></script>
+  <script src="jquery-ui.js"></script>
+  <script src="underscore.js"></script>
+  <script src="html2canvas.min.js"></script>
+  <script src="canvas2image.js"></script>
+
+</head>
+<body>
+<img id="hiddenlayer" src="config/example.png">
+
+<div id="listText">
+  Please drag the following numbers to the corresponding places of the visualization. 
+<br>
+ 
+<br>
+<div id="tasks">
+  </div>
+<br>
+<br>
+<br>
+<input type="text" value="00:00">
+<input id="startButton" type="button" value="Start">
+<input id = "resetButton" type="button" value="Reset">
+<input id = "finishButton" type="button" value="Finish!">
+<div>
+  When you are ready, please press the start to record the time. 
+  <br>
+  When you finish, please press the Finish button and download the screenshot of your result, thank you!
+
+</div>
+<p id="introduction">
+</div>
+
+  <script>
+
+  $( function() {
+
+
+
+    var oTxt=document.getElementsByTagName("input")[0];
+    var oStart=document.getElementsByTagName("input")[1];
+    var oStop=document.getElementsByTagName("input")[2];
+    var oReset=document.getElementsByTagName("input")[3];
+    var n= 0, timer=null;
+    //开始计时
+    oStart.οnclick= function () {
+        clearInterval(timer);
+        timer=setInterval(function () {
+            n++;
+            var m=parseInt(n/3600);
+            var s=parseInt(n/60);
+            oTxt.value=toDub(m)+":"+toDub(s);
+        },1000);
+    };
+    $("#startButton").on("click",function(){
+ 
+              clearInterval(timer);
+
+      timer=setInterval(function () {
+            n++;
+            var m=parseInt(n/3600);
+            var s=parseInt(n/60)%60;
+            oTxt.value=toDub(m)+":"+toDub(s);
+        },1000/60);
+    })
+
+  $("#finishButton").click(function() {
+        clearInterval(timer);
+
+  html2canvas(document.body).then(function(canvas) {
+
+var url = canvas.toDataURL();
+                  $("<a>", {
+                    href: url,
+                    download: "screenshot"
+                  })
+                  .on("click", function() {$(this).remove()})
+                  .appendTo("body")[0].click()
+
+    // Canvas2Image.saveAsPNG(canvas,null,null,"screenshot.png");
+  });
+  })
+
+    $("#resetButton").on("click",function(){
+        oTxt.value="00:00";
+        n=0;
+    })
+    function toDub(n){
+        return n<10?"0"+n:""+n;
+    }
+
+  })
+
+
+  
+$.ajax({
+    url: "config/tasks.txt",
+    // type: 'POST',
+    dataType: 'text',
+    success: function (data) {
+
+      $.each(data.split(/[\n\r]+/), function(index, line) {
+
+        if(index==0){
+          $("#introduction").text(line).appendTo('#tasks');
+        }else{
+          var tpl = _.template("<div style='padding:0.5em'><div id='draggable<%= myIndex %>' class='dragg ui-widget-content' style='display:inline'><%= myIndex %></div><p style='display:inline'><%= myText %></p></div>");
+
+         $(tpl({myIndex:index,myText:line})).appendTo('#tasks');
+
+          $( "#draggable"+index ).draggable(
+              {
+                start: function( event, ui ) {
+                  $("object").css("pointer-events","none")
+                },
+                stop: function( event, ui ) {
+                  $("object").css("pointer-events","all")
+                }
+              })
+        }
+      });
+
+    },
+    async: false
+});
+
+
+  </script>
+
+</body>
+</html>
