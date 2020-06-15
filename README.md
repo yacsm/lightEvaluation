@@ -10,7 +10,8 @@ Please put two data into the config filefolder:
 Descriptive Text
 1. Task1 Content
 2. Task2 Content
-..
+.
+.
 n. TaskN content
 
 
