@@ -1,8 +1,4 @@
-(Hillary Clinton: Pink, Donald Trump: Blue). This visualization shows the frequent words usage of them when mentioning 'great'. The time span for aggregation is every one week.
-1. Clinton's peak activity time;
-2. The time that Trump had Higher activities than Clinton
-3. Common keywords of both users except "great"
-4. Common keywords of both users except "great"
-5. The time that Trump had Higher activities than Clinton
-6. Common keywords of both users except "great"
-7. Common keywords of both users except "great"
+This visualization shows the event of drivers' actions. It visualizes the spatial and temporal distribution of the events.
+1. Peak event regions;
+2. The slow speed patterns
+3. Common trajectories, etc.
