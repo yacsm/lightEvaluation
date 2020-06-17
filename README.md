@@ -11,9 +11,18 @@ Descriptive Text
 1. Task1 Content
 2. Task2 Content
 .
-.
+
 n. TaskN content
 
+# optional setting
+You can put an config file of 'imgsize.csv' in the config folder, setting the image with desired width and height.
+
+width,height
+800,400
+
+It is optional. By default, you don't need this config file.
+
+# set up
 
 The "index.html" should be opened in a web browser of a server, e.g.
 1) python -m http.server

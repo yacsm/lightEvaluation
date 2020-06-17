@@ -106,6 +106,33 @@
 
   $( function() {
 
+    $.ajax({
+    url: "config/imgsize.csv",
+    // type: 'POST',
+    dataType: 'text',
+    success: function (data) {
+
+      $.each(data.split(/[\n\r]+/), function(index, line) {
+
+        if(index==1){
+          var sizeConfig = line.split(",")
+          var imgWidth = sizeConfig[0]
+          var imgHeight = sizeConfig[1]
+          if(!imgWidth || !imgHeight){
+            return
+          }
+          $("#hiddenlayer").width(imgWidth)
+          $("#hiddenlayer").height(imgHeight)
+          $("#listText").css({left:imgWidth+"px"})
+        }else{
+         
+        }
+      });
+
+    },
+    async: false
+});
+
 
 
     var oTxt=document.getElementsByTagName("input")[0];
