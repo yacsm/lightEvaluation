@@ -20,6 +20,9 @@
     width:70%;
   }
   </style>
+
+<script src="polyfill.min.js"></script>
+
   <script src="jquery-1.12.4.js"></script>
   <script src="jquery-ui.js"></script>
   <script src="underscore.js"></script>
@@ -162,6 +165,16 @@
         },1000/60);
     })
 
+
+function isIE()
+{
+  if(!!window.ActiveXObject || "ActiveXObject" in window)
+    return true;
+  else
+    return false;
+}
+
+
   $("#finishButton").click(function() {
         clearInterval(timer);
 
@@ -173,13 +186,31 @@ var today = new Date();
 var todayStr = today.getLumpyString()
 
 var url = canvas.toDataURL();
-                  $("<a>", {
-                    href: url,
-                    download: "screenshot"+todayStr+".png"
-                  })
-                  .on("click", function() {$(this).remove()})
-                  .appendTo("body")[0].click()
+                  
+                  // $("<a>", {
+                  //   href: url,
+                  //   download: "screenshot"+todayStr+".png"
+                  // })
+                  // .on("click", function() {$(this).remove()})
+                  // .appendTo("body")[0].click()
 
+
+function downloadURI(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    link.click();
+}
+
+  if(isIE()){
+    window.navigator.msSaveBlob(canvas.msToBlob(), "screenshot"+todayStr+".png");
+  }else{
+    downloadURI(url, "screenshot"+todayStr+".png");
+  }
+
+
+
+// 
     // Canvas2Image.saveAsPNG(canvas,null,null,"screenshot.png");
   });
   })
